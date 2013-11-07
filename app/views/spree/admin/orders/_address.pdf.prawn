@@ -7,17 +7,18 @@ anonymous = @order.email =~ /@example.net$/
 
 bounding_box [0,600], :width => 540 do
   move_down 2
-  data = [[Prawn::Table::Cell.new( :text => Spree.t(:billing_address), :font_style => :bold ),
-                Prawn::Table::Cell.new( :text => Spree.t(:shipping_address), :font_style => :bold )]]
+  data = [[Prawn::Table::Cell::Text.new(@pdf, [0,0], :content => Spree.t(:billing_address), :font_style => :bold ),
+                Prawn::Table::Cell::Text.new(@pdf, [0,0], :content => Spree.t(:shipping_address), :font_style => :bold )]]
 
-  table data,
-    :position           => :center,
-    :border_width => 0.5,
-    :vertical_padding   => 2,
-    :horizontal_padding => 6,
-    :font_size => 9,
-    :border_style => :underline_header,
-    :column_widths => { 0 => 270, 1 => 270 }
+  table data do
+    position  = :center
+    border_width = 0.5
+    vertical_padding   = 2
+    horizontal_padding = 6
+    font_size = 9
+    border_style = :underline_header
+    column_widths = { 0 => 270, 1 => 270 }
+  end
 
   move_down 2
   horizontal_rule
@@ -39,13 +40,14 @@ bounding_box [0,600], :width => 540 do
       data2 << [shipping_method_name, shipping_method_name]
     end
 
-    table data2,
-      :position           => :center,
-      :border_width => 0.0,
-      :vertical_padding   => 0,
-      :horizontal_padding => 6,
-      :font_size => 9,
-      :column_widths => { 0 => 270, 1 => 270 }
+    table data2 do
+      position           = :center
+      border_width = 0.0
+      vertical_padding   = 0
+      horizontal_padding = 6
+      font_size = 9
+      column_widths = { 0 => 270, 1 => 270 }
+    end
   end
 
   move_down 2

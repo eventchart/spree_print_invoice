@@ -5,6 +5,8 @@ im = "#{Rails.root.to_s}/public/assets/#{Spree::PrintInvoice::Config[:print_invo
 
 image im , :at => [0,720] #, :scale => 0.35
 
+move_down 40
+
 fill_color "E99323"
 if @hide_prices
   text Spree.t(:packaging_slip), :align => :right, :style => :bold, :size => 18
@@ -13,12 +15,12 @@ else
 end
 fill_color "000000"
 
-move_down 4
+move_down 40
 
 font "Helvetica",  :size => 9,  :style => :bold
 text "#{Spree.t(:order_number)} #{@order.number}", :align => :right
 
-move_down 2
+move_down 20
 font "Helvetica", :size => 9
 text "#{I18n.l @order.completed_at.to_date}", :align => :right
 
@@ -32,4 +34,4 @@ render :partial => "line_items_box"
 move_down 8
 
 # Footer
-# render :partial => "footer"
+#render :partial => "footer"

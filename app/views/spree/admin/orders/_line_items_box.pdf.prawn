@@ -7,23 +7,26 @@ else
 end
 
 # Line Items
-bounding_box [0,cursor], :width => 540, :height => 430 do
-  move_down 2
-  header =  [Prawn::Table::Cell.new( :text => Spree.t(:sku), :font_style => :bold),
-                Prawn::Table::Cell.new( :text => Spree.t(:item_description), :font_style => :bold ) ]
-  header <<  Prawn::Table::Cell.new( :text => Spree.t(:options), :font_style => :bold )
-  header <<  Prawn::Table::Cell.new( :text => Spree.t(:price), :font_style => :bold ) unless @hide_prices
-  header <<  Prawn::Table::Cell.new( :text => Spree.t(:qty), :font_style => :bold, :align => 1 )
-  header <<  Prawn::Table::Cell.new( :text => Spree.t(:total), :font_style => :bold ) unless @hide_prices
+#bounding_box [0,cursor], :width => 540, :height => 430 do
 
-  table [header],
-    :position           => :center,
-    :border_width => 1,
-    :vertical_padding   => 2,
-    :horizontal_padding => 6,
-    :font_size => 9,
-    :column_widths => @column_widths ,
-    :align => @align
+  move_down 2
+
+  header =  [Prawn::Table::Cell::Text.new(@pdf, [0,0], :content => Spree.t(:sku), :font_style => :bold),
+                Prawn::Table::Cell::Text.new(@pdf, [0,0], :content => Spree.t(:item_description), :font_style => :bold ) ]
+  header <<  Prawn::Table::Cell::Text.new(@pdf, [0,0], :content => Spree.t(:options), :font_style => :bold )
+  header <<  Prawn::Table::Cell::Text.new(@pdf, [0,0], :content => Spree.t(:price), :font_style => :bold ) unless @hide_prices
+  #header <<  Prawn::Table::Cell::Text.new(@pdf, [0,0], :content => Spree.t(:quantity), :font_style => :bold, :align => 1 )
+  header <<  Prawn::Table::Cell::Text.new(@pdf, [0,0], :content => Spree.t(:total), :font_style => :bold ) unless @hide_prices
+
+  table [header] do
+    position           = :center
+    border_width = 1
+    vertical_padding   = 2
+    horizontal_padding = 6
+    font_size = 9
+    column_widths = @column_widths
+    align = @align
+  end
 
   move_down 4
 
@@ -40,14 +43,16 @@ bounding_box [0,cursor], :width => 540, :height => 430 do
     end
 
 
-    table content,
-      :position           => :center,
-      :border_width => 0.5,
-      :vertical_padding   => 5,
-      :horizontal_padding => 6,
-      :font_size => 9,
-      :column_widths => @column_widths ,
-      :align => @align
+    table content do
+      position           = :center
+      border_width = 0.5
+      vertical_padding   = 5
+      horizontal_padding = 6
+      font_size = 9
+      column_widths = @column_widths
+      align = @align
+    end
+
   end
 
   font "Helvetica", :size => 9
@@ -68,4 +73,4 @@ bounding_box [0,cursor], :width => 540, :height => 430 do
     line bounds.bottom_left, bounds.bottom_right
   end
 
-end
+#end
